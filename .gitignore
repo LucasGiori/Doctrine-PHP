@@ -1,0 +1,6 @@
+/vendor
+.env
+.editorconfig
+.idea
+composer.lock
+var/doctrine

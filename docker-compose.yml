@@ -1,0 +1,52 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: lucasgiori
+        uid: 1000
+      context: ./docker/php8
+      dockerfile: Dockerfile
+    container_name: php8
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - slim
+    links:
+      - contencioso
+    environment:
+      - PHP_FPM_ENABLE=1
+      - PHP_FPM_SERVER_ADDR=php
+      - PHP_FPM_SERVER_PORT=9000
+  
+  contencioso:
+    image: postgres:12
+    container_name: contencioso
+    restart: always
+    ports:
+      - 5430:${DB_PORT}
+    environment:       
+        POSTGRES_DB: ${DB_DATABASE}
+        POSTGRES_USER: ${DB_USERNAME}
+        POSTGRES_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - slim
+
+  nginx:
+    image: nginx:alpine
+    container_name: server-nginx
+    restart: unless-stopped
+    ports:
+      - 8081:80
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx:/etc/nginx/conf.d/
+    networks:
+      - slim
+
+networks:
+  slim:
+    driver: bridge
