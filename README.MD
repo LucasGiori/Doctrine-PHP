@@ -5,6 +5,12 @@ API usando **[Doctrine ORM](https://www.doctrine-project.org/)** dentro do frame
 
 #### Configuração de ambiente
 
+
+* Copiar <code><+//code> [Docker-compose](https://docs.docker.com/compose/)
+    ```
+    docker-compose up -d --build
+    ```
+
 * Rodar os containers utilizando [Docker-compose](https://docs.docker.com/compose/)
     ```
     docker-compose up -d --build
@@ -23,4 +29,11 @@ API usando **[Doctrine ORM](https://www.doctrine-project.org/)** dentro do frame
 
     ```
     docker-compose exec app vendor/bin/doctrine orm:schema-tool:update --force
+    ```
+
+* Acessar Database para verificar se Tabelas foram criadas corretamentes
+    
+    ```
+        docker exec -it contencioso bash -c "psql -U postgres -d contencioso"
+        \dt -- Comando que lista tabelas
     ```
