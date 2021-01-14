@@ -24,6 +24,3 @@ API usando **[Doctrine ORM](https://www.doctrine-project.org/)** dentro do frame
     ```
     docker-compose exec app vendor/bin/doctrine orm:schema-tool:update --force
     ```
-    ```
-     docker-compose exec app vendor/bin/doctrine orm:schema-tool:create
-    ```
