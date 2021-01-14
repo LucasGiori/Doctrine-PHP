@@ -9,6 +9,6 @@ use App\Handler\Usuario\GetUserById;
 use Slim\Routing\RouteCollectorProxy;
 
 $app->group('/usuarios', function (RouteCollectorProxy $group) {  
-    $group->get('[/{id}]', new GetUserById($container->get('em')->get));//$container->get('em')->getRespository(Usuario::class)
+    //$group->get('[/{id}]', new GetUserById($container->get('em')->get));//$container->get('em')->getRespository(Usuario::class)
 });
 
