@@ -6,9 +6,10 @@ API usando **[Doctrine ORM](https://www.doctrine-project.org/)** dentro do frame
 #### Configuração de ambiente
 
 
-* Copiar <code><+//code> [Docker-compose](https://docs.docker.com/compose/)
+* Criar uma cópia do <code>.env.example  TO .env </code>
+
     ```
-    docker-compose up -d --build
+    cp .env.example .env    
     ```
 
 * Rodar os containers utilizando [Docker-compose](https://docs.docker.com/compose/)
