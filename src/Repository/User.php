@@ -12,9 +12,7 @@ final class User implements InterfaceUserRepository
 {
     private $usuarioRepository;
     
-    public function __construct(
-       EntityManager $entityManager,       
-    )
+    public function __construct(EntityManager $entityManager)
     {
         $this->usuarioRepository = $entityManager->getRepository(EntityUser::class);
     }

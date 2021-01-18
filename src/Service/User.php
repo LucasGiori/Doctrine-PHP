@@ -4,15 +4,19 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Entity\User as EntityUser;;
 use App\InterfaceRepository\User as InterfaceUserRepository;
 
 class User
 {
-    public function __construct(
-        public InterfaceUserRepository $userInterface,
-        $interfaceUser
-    )
+    protected InterfaceUserRepository $interfaceUser;
+    public function __construct(InterfaceUserRepository $interfaceUser)
     {
-        $this->userInterface = $interfaceUser;
+        $this->interfaceUser = $interfaceUser;
+    }
+
+    public function getUserById(int $id):EntityUser
+    {
+        return $this->interfaceUser->getUserById($id);
     }
 }
