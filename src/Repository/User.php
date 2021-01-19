@@ -8,18 +8,20 @@ use App\Entity\User as EntityUser;
 use Doctrine\ORM\EntityManager;
 use App\InterfaceRepository\User as InterfaceUserRepository;
 
-final class User implements InterfaceUserRepository
+final class User //implements InterfaceUserRepository
 {
     private $usuarioRepository;
     
     public function __construct(EntityManager $entityManager)
     {
+        print_r($entityManager);
+        exit;
         $this->usuarioRepository = $entityManager->getRepository(EntityUser::class);
     }
 
     public function getUserById(int $idusuario): EntityUser
     {
-        return $this->usuarioRepository->findBy([
+        return $this->usuarioRepository->find([
             'idusuario' => $idusuario
         ]);
     }
