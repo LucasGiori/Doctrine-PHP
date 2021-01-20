@@ -9,4 +9,5 @@ use App\Entity\User as EntityUser;
 interface User
 {
     public function getUserById(int $iduser):EntityUser;
+    public function create(EntityUser $user):void;
 }

@@ -26,9 +26,9 @@ class User
 
     /**
      * @ORM\ManyToOne(targetEntity="UserType")
-     * @ORM\JoinColumn(name="idtipousuario", referencedColumnName="idusertype")
+     * @ORM\JoinColumn(name="idusertype", referencedColumnName="idusertype")
      */
-    private int $idusertype;
+    private UserType $usertype;
 
 
     public function getIduser():int
@@ -43,12 +43,17 @@ class User
     {
         $this->name = $name;
     }
-    public function getIdusertype():int
+    public function getUsertype():UserType
     {
-        return $this->idusertype;
+        return $this->usertype;
     }
-    public function setIdusertype(int $idusertype):void
+    public function setUsertype(UserType $usertype):void
     {
-        $this->idusertype = $idusertype;
+        $this->usertype = $usertype;
+    }
+
+    public function registerUserType(int $idusertype,$entityManager):void
+    {
+
     }
 }

@@ -8,21 +8,23 @@ use App\Entity\User as EntityUser;
 use Doctrine\ORM\EntityManager;
 use App\InterfaceRepository\User as InterfaceUserRepository;
 
-final class User //implements InterfaceUserRepository
+final class User implements InterfaceUserRepository
 {
-    private $usuarioRepository;
+    private $entityManager;
     
     public function __construct(EntityManager $entityManager)
     {
-        print_r($entityManager);
-        exit;
-        $this->usuarioRepository = $entityManager->getRepository(EntityUser::class);
+        $this->entityManager = $entityManager;
     }
 
-    public function getUserById(int $idusuario): EntityUser
+    public function getUserById(int $iduser): EntityUser
     {
-        return $this->usuarioRepository->find([
-            'idusuario' => $idusuario
-        ]);
+        return $this->entityManager->getRepository(EntityUser::class)->find($iduser);
+    }
+
+    public function create(EntityUser $user): void
+    {
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
     }
 }

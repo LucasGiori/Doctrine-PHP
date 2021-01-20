@@ -6,8 +6,10 @@ use Exception;
 use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
 use Symfony\Component\Dotenv\Dotenv;
+use App\Util\SerializerUtil;
 
 require_once __DIR__ . "/../../vendor/autoload.php";
+require __DIR__.'/../../config/doctrine.php';
 
 $dotenv = new Dotenv();
 if (!file_exists(__DIR__ . '/../../.env')){
@@ -23,10 +25,14 @@ $containerBuilder->addDefinitions($settings);
 
 $container = $containerBuilder->build();
 
-// inserindo o entity manager no container
-require __DIR__.'/../../config/doctrine.php';
+// Definindo funções que ficarão disponíveis no container;
+
 $entityManager = getEntityManager($container);
 $container->set('em', $entityManager);
+$container->set('serializer',function(){
+    return new SerializerUtil();
+});
+
 $app = AppFactory::createFromContainer($container);
 
 //require_once __DIR__ . '/Repositories.php';
