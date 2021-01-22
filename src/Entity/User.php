@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\DBAL\Schema\Schema;
 /** 
  * @ORM\Entity
  * @ORM\Table(name="user")
@@ -50,10 +50,5 @@ class User
     public function setUsertype(UserType $usertype):void
     {
         $this->usertype = $usertype;
-    }
-
-    public function registerUserType(int $idusertype,$entityManager):void
-    {
-
     }
 }

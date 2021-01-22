@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Handler\User;
 
 use Exception;
-use App\Entity\User as EntityUser;
 use App\Entity\UserType as EntityUserType;
-use App\Factory\User as UserFactory;
+use App\Factory\UserType as UserTypeFactory;
 use App\Util\FormToObject;
 use Psr\Http\Message\ServerRequestInterface;
 use Fig\Http\Message\StatusCodeInterface;
@@ -27,12 +26,13 @@ final class CreateUser
         try{
             $params = json_decode($request->getBody()->getContents());
 
-            $usertype = $this->container->get('em')->getRepository(EntityUserType::class)->find($params->idusertype);
-            $user = new EntityUser();
-            $user->setUsertype($usertype);
-            $user = FormToObject::createClass((array) $params, $user);
+            $usertype = FormToObject::createClass((array) $params,(new EntityUserType()));
             
-            UserFactory::create($this->container->get('em'), $user);
+            UserTypeFactory::create($this->container->get('em'), $usertype);
+
+            // $userRepository = new UserRepository($this->container->get('em'));
+            // $userService = new UserService($userRepository);
+            // $userService->create($user);
             return $response->withHeader('Content-Type','application/json')->withStatus(StatusCodeInterface::STATUS_CREATED);
         }catch(Exception $e){ 
             $response->getBody()->write(json_encode(['message'=>$e->getMessage()]));
