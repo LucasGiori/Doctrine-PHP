@@ -7,6 +7,8 @@ namespace App\Repository;
 use App\Entity\User as EntityUser;
 use Doctrine\ORM\EntityManager;
 use App\InterfaceRepository\User as InterfaceUserRepository;
+use TypeError;
+use Exception;
 
 final class User implements InterfaceUserRepository
 {
@@ -19,7 +21,7 @@ final class User implements InterfaceUserRepository
 
     public function getUserById(int $iduser): EntityUser
     {
-        return $this->entityManager->getRepository(EntityUser::class)->find($iduser);
+       return $this->entityManager->getRepository(EntityUser::class)->find($iduser);
     }
 
     public function create(EntityUser $user): void

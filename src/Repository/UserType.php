@@ -7,6 +7,8 @@ namespace App\Repository;
 use App\Entity\UserType as EntityUserType;
 use Doctrine\ORM\EntityManager;
 use App\InterfaceRepository\UserType as InterfaceUserTypeRespository;
+use TypeError;
+use Exception;
 
 final class UserType implements InterfaceUserTypeRespository
 {
@@ -19,9 +21,13 @@ final class UserType implements InterfaceUserTypeRespository
 
     public function getUserTypeById(int $idusertype): EntityUserType
     {
-        $usertype = $this->entityManager->getRepository(EntityUserType::class)->find($idusertype);
-        return $usertype;
-        
+        try{
+            return $this->entityManager->getRepository(EntityUserType::class)->find($idusertype);
+        }catch(TypeError $e){
+            throw new Exception("Não existe nenhum tipo de usuário com está identificação!");
+        }catch(Exception $e){
+            throw new Exception($e->getMessage());
+        }
     }
 
     public function create(EntityUserType $usertype): void
