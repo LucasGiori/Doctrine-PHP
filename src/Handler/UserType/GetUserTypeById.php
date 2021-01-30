@@ -31,6 +31,7 @@ final class GetUserTypeById
 
             $usertype = UserTypeFactory::getUserTypeById($this->container->get('em'), (int)$args['id']);
             $usertype = $this->container->get('serializer')->serialize($usertype,'json');
+            
             $response->getBody()->write($usertype);
             return $response->withHeader('Content-Type','application/json')->withStatus(StatusCodeInterface::STATUS_OK);
 

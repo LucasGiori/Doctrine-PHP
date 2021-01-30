@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Handler\User;
+namespace App\Handler\UserType;
 
 use Exception;
 use App\Entity\UserType as EntityUserType;
@@ -13,7 +13,7 @@ use Fig\Http\Message\StatusCodeInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 
-final class CreateUser
+final class CreateUserType
 {
 
     public function __construct(ContainerInterface $container)
@@ -28,12 +28,9 @@ final class CreateUser
 
             $usertype = FormToObject::createClass((array) $params,(new EntityUserType()));
             
-            UserTypeFactory::create($this->container->get('em'), $usertype);
+            var_dump(UserTypeFactory::create($this->container->get('em'), $usertype));
 
-            // $userRepository = new UserRepository($this->container->get('em'));
-            // $userService = new UserService($userRepository);
-            // $userService->create($user);
-            return $response->withHeader('Content-Type','application/json')->withStatus(StatusCodeInterface::STATUS_CREATED);
+            return $response->withHeader('Content-Type','application/json')->withStatus(StatusCodeInterface::STATUS_OK);
         }catch(Exception $e){ 
             $response->getBody()->write(json_encode(['message'=>$e->getMessage()]));
             return $response->withHeader('Content-Type','application/json')->withStatus(StatusCodeInterface::STATUS_BAD_REQUEST);

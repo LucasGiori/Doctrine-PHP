@@ -8,19 +8,27 @@ use App\Entity\UserType as EntityUserType;
 use App\Repository\UserType as UserTypeRepository;
 use App\Service\UserType as UserTypeService;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Validator\Validation;
 
 final class UserType
 { 
     public static function create(EntityManager $entityManager,EntityUserType $usertype)
     {
+        // $validator = Validation::createValidator();
+        // $errors = $validator->validate($usertype);
+        
+        // var_dump($errors);
+        // exit;
+        // if (count($errors) > 0) {
+        // }
         $userTypeRepository = new UserTypeRepository($entityManager);
-        $userTypeService = (new UserTypeService($userTypeRepository))->create($usertype);
-        return $userTypeService;
+        (new UserTypeService($userTypeRepository))->create($usertype);
     }
 
     public static function getUserTypeById(EntityManager $entityManager,int $idusertype):EntityUserType
     {
-        $userTypeRepository = new UserTypeRepository($entityManager);
+        $validator = Validation::createValidator();
+        $userTypeRepository = new UserTypeRepository($entityManager, $validator);
         $userTypeService = (new UserTypeService($userTypeRepository))->getUserTypeById($idusertype);
         return $userTypeService;
     }

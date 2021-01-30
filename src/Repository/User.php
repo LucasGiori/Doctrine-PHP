@@ -7,8 +7,6 @@ namespace App\Repository;
 use App\Entity\User as EntityUser;
 use Doctrine\ORM\EntityManager;
 use App\InterfaceRepository\User as InterfaceUserRepository;
-use TypeError;
-use Exception;
 
 final class User implements InterfaceUserRepository
 {

@@ -7,8 +7,15 @@ use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
 use Symfony\Component\Dotenv\Dotenv;
 use App\Util\SerializerUtil;
+use Doctrine\Common\Annotations\AnnotationRegistry;
+
 
 require_once __DIR__ . "/../../vendor/autoload.php";
+//AnnotationRegistry::registerAutoloadNamespace("Symfony\Component\Validator\Constraint", "path/to/symfony/library/validator");
+AnnotationRegistry::registerLoader([require __DIR__ .'/../../vendor/autoload.php', 'loadClass']);
+//AnnotationRegistry::registerAutoloadNamespace("Symfony\Component\Validator\Constraint", "/path/to/symfony/src");
+
+
 require __DIR__.'/../../config/doctrine.php';
 
 $dotenv = new Dotenv();

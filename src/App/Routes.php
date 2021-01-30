@@ -14,9 +14,10 @@ $app->group('/api', function (RouteCollectorProxy $group) {
     $group->group('/users', function (RouteCollectorProxy $group) { 
         $group->get('[/{id}]', GetUserById::class);
         $group->post('[/]', CreateUser::class);
+
         //Route list Types of users
         $group->get('/types/{id}', GetUserTypeById::class);
-        
+        $group->post('/types[/]', CreateUserType::class);
         
     });
    
